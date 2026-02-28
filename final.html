@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEART EXPLOIT :: ROOT ACCESS</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .final-container {
+            background-color: #0a0a0f;
+            border-color: #ff69b4;
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.3);
+        }
+        
+        .heart {
+            font-size: 5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            35% { transform: scale(1.2); }
+            45% { transform: scale(1.1); }
+            55% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        .typing-area {
+            min-height: 200px;
+            background-color: #0f0f1a;
+            border: 1px solid #ff69b4;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+        
+        .yes-button {
+            background-color: #ff69b4;
+            color: #0a0a0f;
+            font-size: 1.5rem;
+            padding: 1rem 3rem;
+            border: none;
+            margin: 2rem 0;
+            animation: pulse-pink 2s infinite;
+        }
+        
+        .yes-button:hover {
+            background-color: #ff1493;
+            box-shadow: 0 0 30px #ff69b4;
+        }
+        
+        @keyframes pulse-pink {
+            0% { box-shadow: 0 0 20px #ff69b4; }
+            50% { box-shadow: 0 0 50px #ff69b4; }
+            100% { box-shadow: 0 0 20px #ff69b4; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container final-container">
+        <h1 style="color: #ff69b4;">► ROOT ACCESS GRANTED ◄</h1>
+        <div class="progress-bar">
+            <div class="progress" id="progress" style="width: 100%; background-color: #ff69b4;"></div>
+        </div>
+        
+        <div style="text-align: center;">
+            <span class="heart">❤️</span>
+        </div>
+        
+        <div class="typing-area" id="typing-area">
+            <!-- The typing effect will write here -->
+        </div>
+        
+        <div style="text-align: center; display: none;" id="button-container">
+            <button class="yes-button" onclick="celebrate()">YES ❤️</button>
+            <button class="yes-button" onclick="celebrate()" style="background-color: #00ff9d; color: #0a0a0f; margin-left: 1rem;">ABSOLUTELY YES</button>
+        </div>
+        
+        <footer style="color: #ff69b4;">
+            <p>SYSTEM: Heart fully exploited. No patches available. ❤️</p>
+        </footer>
+    </div>
+    
+   <script>
+    // The final love message - CUSTOMIZE THIS COMPLETELY!
+    const loveMessage = `> INITIATING HEART EXPLOIT...
+> BYPASSING FRIEND ZONE FIREWALL...
+> ACCESSING CORE FEELINGS DATABASE...
+>
+> DECRYPTING FINAL PAYLOAD:
+>
+> "All that pentesting just to find out 
+>  my biggest vulnerability is you.
+>
+>  I love your mind (especially how you think).
+>  I love your laugh (especially when you laugh at my bad jokes).
+>  I love your heart (which I hope isn't as well-firewalled as mine).
+>
+>  How about we make this official?
+>  Dinner this Saturday at 4pm?"
+>
+> EXECUTE? [YES / ABSOLUTELY YES]`;
+    
+    // Typing effect - standalone version
+    const typingArea = document.getElementById('typing-area');
+    const buttonContainer = document.getElementById('button-container');
+    
+    function startTyping() {
+        if (!typingArea) {
+            console.error('Typing area not found!');
+            return;
+        }
+        
+        let i = 0;
+        typingArea.innerHTML = '';
+        
+        function typeWriter() {
+            if (i < loveMessage.length) {
+                typingArea.innerHTML += loveMessage.charAt(i);
+                i++;
+                setTimeout(typeWriter, 30);
+            } else {
+                // Show buttons when typing is done
+                if (buttonContainer) {
+                    buttonContainer.style.display = 'block';
+                }
+                
+                // Add celebration hearts
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(createCelebrationHeart, i * 100);
+                }
+            }
+        }
+        
+        typeWriter();
+    }
+    
+    function createCelebrationHeart() {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'fixed';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = '-50px';
+        heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+        heart.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+        heart.style.zIndex = '9999';
+        heart.style.pointerEvents = 'none';
+        document.body.appendChild(heart);
+        
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+    
+    function celebrate() {
+        // Create a shower of hearts
+        for (let i = 0; i < 50; i++) {
+            setTimeout(createCelebrationHeart, i * 50);
+        }
+        
+        // Change message
+        if (typingArea) {
+            typingArea.innerHTML = `> PAYLOAD EXECUTED SUCCESSFULLY
+            >
+            > ❤️ MESSAGE RECEIVED ❤️
+            >
+            > Vianne said YES!
+            >
+            > System will now shut down for
+            > a date on Saturday at 4pm!
+            >
+            > See you then! ✨`;
+        }
+        
+        // Hide buttons
+        if (buttonContainer) {
+            buttonContainer.style.display = 'none';
+        }
+        
+        // Change title
+        const title = document.querySelector('h1');
+        if (title) {
+            title.innerHTML = '► DATE CONFIRMED ◄';
+        }
+    }
+    
+    // Start typing when page loads
+    window.addEventListener('load', function() {
+        setTimeout(startTyping, 500);
+    });
+    
+    // Make functions global for button clicks
+    window.celebrate = celebrate;
+</script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

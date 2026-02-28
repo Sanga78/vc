@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEART EXPLOIT :: LEVEL 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>► PRIVILEGE ESCALATION ◄</h1>
+        <div class="progress-bar">
+            <div class="progress" id="progress" style="width: 60%"></div>
+        </div>
+        
+        <h2>LEVEL 3: HTTP Parameter Tampering</h2>
+        
+        <div class="terminal-window">
+            <p>SYSTEM: Checking access privileges...</p>
+            <p>SYSTEM: Current status: <span id="status-display">crush</span></p>
+            <p class="access-denied">✗ ACCESS DENIED: Insufficient privileges.</p>
+            <p>SYSTEM: Required status: 'date' or higher to access next level.</p>
+        </div>
+        
+        <button id="exploit-btn" style="width: 100%; margin: 1rem 0;">ATTEMPT PRIVILEGE ESCALATION</button>
+        
+        <div class="terminal-window" style="display: none;" id="success-message">
+            <p class="access-granted">✓ PRIVILEGES ESCALATED!</p>
+            <p>SYSTEM: Status updated to: <span style="color: #ff69b4;">date</span></p>
+            <p>SYSTEM: Accessing secret files...</p>
+            <p style="color: #ff69b4;">♥ SECRET FILE: "Would you like me to take you on a date?"</p>
+            <button onclick="window.location.href='level4.html'" style="margin-top: 1rem;">→ ACCESS NEXT LEVEL</button>
+        </div>
+        
+        <div class="hint">
+            💡 Hint: Check the URL. The server trusts client-side parameters. What happens if you change "status=crush" to something else?
+        </div>
+        
+        <footer>
+            <p>SESSION DATA | User: guest | Role: user</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Check URL parameters on load
+        const urlParams = new URLSearchParams(window.location.search);
+        let status = urlParams.get('status');
+        
+        // Update display
+        const statusDisplay = document.getElementById('status-display');
+        if (statusDisplay) {
+            statusDisplay.textContent = status || 'crush';
+        }
+        
+        // Check if they've already exploited it
+        if (status === 'date' || status === 'partner' || status === 'girlfriend' || status === 'boyfriend') {
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('exploit-btn').style.display = 'none';
+        }
+        
+        // Handle exploit button
+        document.getElementById('exploit-btn').addEventListener('click', function() {
+            alert('🔍 To escalate privileges, modify the URL in your address bar. Try changing "status=crush" to "status=date" and press Enter.');
+        });
+        
+        // Also check if they used a cute custom status
+        if (status && status !== 'crush' && status !== 'date' && status !== 'partner') {
+            // They used something custom and cute!
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('exploit-btn').style.display = 'none';
+            
+            // Personalize the message
+            const secretFile = document.querySelector('#success-message p:nth-child(4)');
+            if (secretFile) {
+                secretFile.innerHTML = `♥ SECRET FILE: "You changed the status to '${status}'? That's creative. How about we make that official?"`;
+            }
+        }
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

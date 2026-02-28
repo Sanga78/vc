@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEART EXPLOIT :: LEVEL 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>► AUTHENTICATION REQUIRED ◄</h1>
+        <div class="progress-bar">
+            <div class="progress" id="progress" style="width: 40%"></div>
+        </div>
+        
+        <h2>LEVEL 2: Weak Authentication</h2>
+        
+        <div class="terminal-window">
+            <p>SYSTEM: Password required to access next level.</p>
+            <p>SYSTEM: Hint: What qualities grant you access to my heart?</p>
+        </div>
+        
+        <div class="input-group">
+            <input type="password" id="password-input" placeholder="Enter quality..." autofocus>
+            <button onclick="checkPassword()">AUTHENTICATE</button>
+        </div>
+        
+        <div id="message"></div>
+        
+        <div class="hint">
+            💡 Hint: The password validation is client-side. What could that mean? (Check the JavaScript!)
+        </div>
+        
+        <footer>
+            <p>ACCESS LOG | Attempts: <span id="attempt-count">0</span></p>
+        </footer>
+    </div>
+    
+    <script>
+        // The password validation function is here in the HTML for clarity
+        // But it's also in script.js - this is just a backup
+        
+        let attempts = 0;
+        
+        function checkPassword() {
+            const input = document.getElementById('password-input');
+            const message = document.getElementById('message');
+            const attemptSpan = document.getElementById('attempt-count');
+            
+            attempts++;
+            attemptSpan.textContent = attempts;
+            
+            // These are the valid qualities - any of them work!
+            const validQualities = [
+                "brilliant", "kind", "funny", "gorgeous", 
+                "amazing", "smart", "beautiful", "wonderful",
+                "perfect", "incredible","vianne"
+            ];
+            
+            const userInput = input.value.toLowerCase().trim();
+            
+            if (validQualities.includes(userInput)) {
+                message.innerHTML = '<span class="access-granted">✓ ACCESS GRANTED. That quality is definitely you. Proceeding to next level...</span>';
+                setTimeout(() => {
+                    window.location.href = 'level3.html?status=crush';
+                }, 2000);
+            } else {
+                message.innerHTML = '<span class="access-denied">✗ ACCESS DENIED. That quality isn\'t in my database of what I admire about you. Try another.</span>';
+            }
+        }
+        
+        // Allow Enter key to submit
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
